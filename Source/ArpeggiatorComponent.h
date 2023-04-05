@@ -26,9 +26,14 @@ class ArpeggiatorComponent : public juce::Component {
 
     for now, default order will be ascending.
     */
-    juce::slider bpm;
-    juce::button power;
 
+    juce::Slider bpmSlider;
+    std::unique_ptr<juce::AudioProcessorValueTreeState::SliderAttachment> bpmAttachment;
+    juce::Label bpmLabel;
+
+    juce::ToggleButton powerButton;
+    std::unique_ptr<juce::AudioProcessorValueTreeState::ButtonAttachment> powerAttachment;
+    juce::Label powerLabel;
 };
 
 /*

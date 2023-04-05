@@ -12,6 +12,7 @@
 #include "PluginProcessor.h"
 #include "ADSRComponent.h"
 #include "OscComponent.h"
+#include "ArpeggiatorComponent.h"
 
 //==============================================================================
 /**
