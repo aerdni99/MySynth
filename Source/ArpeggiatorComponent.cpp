@@ -25,8 +25,13 @@ ArpeggiatorComponent::ArpeggiatorComponent(juce::AudioProcessorValueTreeState& a
     bpmLabel.attachToComponent(&bpmSlider, false);
     bpmLabel.setJustificationType(juce::Justification(4));
 
-    powerButton.setButtonText("Arpeggiator");
     addAndMakeVisible(powerButton);
+    powerButton.setButtonText("");
+    addAndMakeVisible(powerLabel);
+    powerLabel.setText("ARP", juce::dontSendNotification);
+    powerLabel.attachToComponent(&powerButton, false);
+    powerLabel.setJustificationType(juce::Justification(4));
+
 }
 
 ArpeggiatorComponent::~ArpeggiatorComponent() {
@@ -34,14 +39,13 @@ ArpeggiatorComponent::~ArpeggiatorComponent() {
 
 void ArpeggiatorComponent::resized() {
     const auto bounds = getLocalBounds().reduced(10);
-    const auto padding = 10;
-    const auto width = bounds.getWidth() / 2 - padding;
-    const auto height = bounds.getHeight() - 4 * padding;
-    const auto startX = 0;
-    const auto startY = bounds.getHeight() / 3;
+    const auto padding = 5;
+    const auto width = bounds.getWidth();
+    const auto height = bounds.getHeight();
 
-    powerButton.setBounds(startX + padding, startY, width, height);
-    bpmSlider.setBounds(powerButton.getRight() + padding, startY, width, height);
+    powerButton.setBounds(width / 4, height / 4, width / 2 - 2 * padding, height / 2);
+    bpmSlider.setBounds(width / 2 + padding, height / 4, width / 2 - 2 * padding, height / 2);
+    powerButton.setColour(0, juce::Colours::white);
 }
 
 void ArpeggiatorComponent::paint(juce::Graphics &g) {
