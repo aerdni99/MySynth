@@ -1,0 +1,20 @@
+// Synth Class Diagram
+
+// Inheritances
+[juce::AudioProcessor{bg:lightslategrey}]^[MySynthAudioProcessor]
+[juce::SynthesiserVoice{bg:lightslategrey}]^[SynthVoice]
+[juce::SynthesiserSound{bg:lightslategrey}]^[SynthSound]
+[juce::Oscillator{bg:lightslategrey}]^[OSCData]
+[juce::AudioProcessorEditor{bg:lightslategrey}]^[MySynthAudioProcessorEditor]
+[juce::Component{bg:lightslategrey}]^[OSCComponent]
+[juce::AudioProcessorValueTreeState{bg:lightslategrey}]
+
+
+// Class Relationships
+[MySynthAudioProcessor]->[juce::AudioProcessorValueTreeState]
+[MySynthAudioProcessor]->[Synthesiser]->[SynthVoice]
+[Synthesiser]->[SynthSound]
+
+[MySynthAudioProcessorEditor]->[OSCComponent]
+
+[SynthVoice]->[OSCData]

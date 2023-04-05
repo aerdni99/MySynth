@@ -21,3 +21,6 @@ JUCE's project configs interfere with my ability to structure these files. I'm g
  - PluginProcessor.cpp & PluginProcessor.h: This is the outermost layer of audio generation. Passes a sample to Synth Voice
  - SynthSound.h: Enables the synthesizer to make noise
  - SynthVoice.cpp & SynthVoice.h: Contains the oscillators and ADSR, controls polyphony
+
+## Class Diagram
+![MySynth Class Diagram](./ClassDiagram.jpg)
