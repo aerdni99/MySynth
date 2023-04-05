@@ -33,6 +33,7 @@ private:
     ADSRComponent adsr;
     OSCComponent osc1;
     OSCComponent osc2;
+    ArpeggiatorComponent arp;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (MySynthAudioProcessorEditor)
 };

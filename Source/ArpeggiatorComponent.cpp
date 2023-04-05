@@ -29,6 +29,9 @@ ArpeggiatorComponent::ArpeggiatorComponent(juce::AudioProcessorValueTreeState& a
     addAndMakeVisible(powerButton);
 }
 
+ArpeggiatorComponent::~ArpeggiatorComponent() {
+}
+
 void ArpeggiatorComponent::resized() {
     const auto bounds = getLocalBounds().reduced(10);
     const auto padding = 10;

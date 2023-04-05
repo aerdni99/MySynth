@@ -11,7 +11,7 @@
 
 //==============================================================================
 MySynthAudioProcessorEditor::MySynthAudioProcessorEditor (MySynthAudioProcessor& p)
-    : AudioProcessorEditor (&p), audioProcessor (p), adsr(audioProcessor.apvts), osc1(audioProcessor.apvts, "OSC1", "OSC1GAIN", "OSC1PITCH"), osc2(audioProcessor.apvts, "OSC2", "OSC2GAIN", "OSC2PITCH")
+    : AudioProcessorEditor (&p), audioProcessor (p), adsr(audioProcessor.apvts), osc1(audioProcessor.apvts, "OSC1", "OSC1GAIN", "OSC1PITCH"), osc2(audioProcessor.apvts, "OSC2", "OSC2GAIN", "OSC2PITCH"), arp(audioProcessor.apvts)
 {
     setSize (600, 300);
 
