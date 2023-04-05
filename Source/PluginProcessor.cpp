@@ -243,5 +243,9 @@ juce::AudioProcessorValueTreeState::ParameterLayout MySynthAudioProcessor::creat
     params.push_back(std::make_unique<juce::AudioParameterFloat>("SUSTAIN", "Sustain", juce::NormalisableRange<float> { 0.0f, 1.0f, }, 1.0f));
     params.push_back(std::make_unique<juce::AudioParameterFloat>("RELEASE", "Release", juce::NormalisableRange<float> { 0.0f, 3.0f, }, 0.4f));
 
+    // ARP
+    params.push_back(std::make_unique<juce::AudioParameterInt>("ARP_BPM", "Arpeggiator BPM", 30, 240, 120));
+    params.push_back(std::make_unique<juce::AudioParameterBool>("ARP_TOGGLE", "Arpeggiator Toggle", false);
+
     return { params.begin(), params.end() };
 }

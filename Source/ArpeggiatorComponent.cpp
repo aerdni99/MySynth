@@ -12,7 +12,8 @@
 
 ArpeggiatorComponent::ArpeggiatorComponent(juce::AudioProcessorValueTreeState& apvts) {
     // Associate the values from the apvts with the UI!
-    // bpmAttachment = std::make_unique<SliderAttachment>(apvts, ...);
+    bpmAttachment = std::make_unique<juce::AudioProcessorValueTreeState::SliderAttachment>(apvts, "ARP_BPM", bpmSlider);
+    powerAttachment = std::make_unique<juce::AudioProcessorValueTreeState::ButtonAttachment>(apvts, "ARP_TOGGLE", powerButton);
 
     // Style the components
     bpmSlider.setSliderStyle(juce::Slider::SliderStyle::LinearVertical);
