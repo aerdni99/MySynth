@@ -1,5 +1,8 @@
 # MySynth
 
+Most of the code thusfar from this base was derived from a tutorial by "The Audio Programmer"
+Here is a [link to the github repo](https://github.com/TheAudioProgrammer/tapSynth) I followed to make this synth
+
 I really regret not getting this under version control sooner...
 
 I've done so much work and witout version control I've got barely anything to show for it

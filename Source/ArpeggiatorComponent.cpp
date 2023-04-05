@@ -9,3 +9,7 @@
 */
 
 #include "ArpeggiatorComponent.h"
+
+ArpeggiatorComponent::ArpeggiatorComponent(juce::AudioProcessorValueTreeState& apvts) {
+    // Associate the values from the apvts with the UI!
+}
