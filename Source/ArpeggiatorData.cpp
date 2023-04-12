@@ -9,3 +9,12 @@
 */
 
 #include "ArpeggiatorData.h"
+
+ArpeggiatorData::ArpeggiatorData() {
+    currentNote = 0;
+    lastNote = -1;
+    time = 0;
+}
+
+ArpeggiatorData::~ArpeggiatorData() {
+}

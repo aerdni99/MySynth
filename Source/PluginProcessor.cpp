@@ -145,13 +145,18 @@ void MySynthAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, juce
     auto totalNumInputChannels  = getTotalNumInputChannels();
     auto totalNumOutputChannels = getTotalNumOutputChannels();
 
+    // ARP
+    // The arp needs to edit the midi messages
+    auto& arpBPM = *apvts.getRawParameterValue("ARP_BPM");
+    auto& arpSel = *apvts.getRawParameterValue("ARP_SEL");
+
+    // Do something to the midiMessages (arpData function call
+
     for (auto i = totalNumInputChannels; i < totalNumOutputChannels; ++i)
         buffer.clear (i, 0, buffer.getNumSamples());
 
     for (int i = 0; i < synth.getNumVoices(); i++) {
         if (auto voice = dynamic_cast<SynthVoice*>(synth.getVoice(i))) {
-
-            // Maybe see about getting rid of some of these 1-time use vars
 
             // ADSR
             auto& attack = *apvts.getRawParameterValue("ATTACK");
@@ -245,7 +250,7 @@ juce::AudioProcessorValueTreeState::ParameterLayout MySynthAudioProcessor::creat
 
     // ARP
     params.push_back(std::make_unique<juce::AudioParameterInt>("ARP_BPM", "Arpeggiator BPM", 30, 240, 120));
-    params.push_back(std::make_unique<juce::AudioParameterBool>("ARP_TOGGLE", "Arpeggiator Toggle", false);
+    params.push_back(std::make_unique<juce::AudioParameterChoice>("ARP_SEL", "Arpeggiator Selector", juce::StringArray{ "Off", "Repeat"}, 0));
 
     return { params.begin(), params.end() };
 }

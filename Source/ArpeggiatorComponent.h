@@ -20,20 +20,14 @@ class ArpeggiatorComponent : public juce::Component {
     void paint(juce::Graphics& g) override;
     void resized() override;
   private:
-    /*
-    I want to be able to control...
-    bpm, toggle on/off.
-
-    for now, default order will be ascending.
-    */
 
     juce::Slider bpmSlider;
     std::unique_ptr<juce::AudioProcessorValueTreeState::SliderAttachment> bpmAttachment;
     juce::Label bpmLabel;
 
-    juce::ToggleButton powerButton;
-    std::unique_ptr<juce::AudioProcessorValueTreeState::ButtonAttachment> powerAttachment;
-    juce::Label powerLabel;
+    juce::ComboBox typeSelector;
+    std::unique_ptr<juce::AudioProcessorValueTreeState::ComboBoxAttachment> typeSelectorAttachment;
+    juce::Label typeLabel;
 };
 
 /*

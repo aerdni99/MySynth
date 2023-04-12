@@ -14,7 +14,6 @@
 #include "SynthSound.h"
 #include "ADSRData.h"
 #include "OSCData.h"
-
 #include "stdlib.h"
 
 class SynthVoice : public juce::SynthesiserVoice {

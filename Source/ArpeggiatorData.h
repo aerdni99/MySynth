@@ -9,3 +9,17 @@
 */
 
 #pragma once
+
+#include <JuceHeader.h>
+
+class ArpeggiatorData {
+  public:
+      ArpeggiatorData();
+      ~ArpeggiatorData();
+
+  private:
+      juce::AudioParameterFloat* speed;
+      int currentNote, lastNote, time;
+      float rate; 
+      juce::SortedSet<int> notes;
+};
