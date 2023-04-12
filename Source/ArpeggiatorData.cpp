@@ -24,3 +24,7 @@ ArpeggiatorData::~ArpeggiatorData() {
 void ArpeggiatorData::setSampleRate(double sampleRate) {
     rate = static_cast<float>(sampleRate);
 }
+
+void ArpeggiatorData::clearNotes() {
+    notes.clear();
+}

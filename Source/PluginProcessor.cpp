@@ -101,6 +101,7 @@ void MySynthAudioProcessor::prepareToPlay (double sampleRate, int samplesPerBloc
 {
     synth.setCurrentPlaybackSampleRate(sampleRate);
     arp.setSampleRate(sampleRate);
+    arp.clearNotes();
 
     for (int i = 0; i < synth.getNumVoices(); i++) {
         if (auto voice = dynamic_cast<SynthVoice*>(synth.getVoice(i))) {
