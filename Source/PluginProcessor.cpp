@@ -19,7 +19,7 @@ MySynthAudioProcessor::MySynthAudioProcessor()
                       #endif
                        .withOutput ("Output", juce::AudioChannelSet::stereo(), true)
                      #endif
-                       ), apvts(*this, nullptr, "Parameters", createParams())
+                       ), apvts(*this, nullptr, "Parameters", createParams()), arp()
 #endif
 {
     synth.addSound(new SynthSound());
@@ -100,6 +100,8 @@ void MySynthAudioProcessor::changeProgramName (int index, const juce::String& ne
 void MySynthAudioProcessor::prepareToPlay (double sampleRate, int samplesPerBlock)
 {
     synth.setCurrentPlaybackSampleRate(sampleRate);
+    arp.setSampleRate(sampleRate);
+
     for (int i = 0; i < synth.getNumVoices(); i++) {
         if (auto voice = dynamic_cast<SynthVoice*>(synth.getVoice(i))) {
             voice->prepareToPlay(sampleRate, samplesPerBlock, getTotalNumOutputChannels());

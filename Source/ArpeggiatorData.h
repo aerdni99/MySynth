@@ -16,6 +16,7 @@ class ArpeggiatorData {
   public:
       ArpeggiatorData();
       ~ArpeggiatorData();
+      void setSampleRate(double sampleRate);
 
   private:
       juce::AudioParameterFloat* speed;
