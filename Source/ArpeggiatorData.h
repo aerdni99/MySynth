@@ -18,9 +18,12 @@ class ArpeggiatorData {
       ~ArpeggiatorData();
       void setSampleRate(double sampleRate);
       void clearNotes();
+      float getRate();
+
+      // Intercepts incoming Midi messages of type noteOn or noteOff and records the notes that are held down currently.
+      void handleMidi(juce::MidiBuffer& midiMessages, float arpBPM, int numSamples);
 
   private:
-      juce::AudioParameterFloat* speed;
       int currentNote, lastNote, time;
       float rate; 
       juce::SortedSet<int> notes;
