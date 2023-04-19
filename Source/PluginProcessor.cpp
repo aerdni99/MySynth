@@ -155,7 +155,7 @@ void MySynthAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, juce
 
     if (arpSel != 0) {
         // Do something to the midiMessages (arpData function call)
-        arp.handleMidi(midiMessages, arpBPM, buffer.getNumSamples());
+        arp.handleMidi(midiMessages, arpBPM, buffer.getNumSamples(), arpSel);
     }
 
 
@@ -257,7 +257,7 @@ juce::AudioProcessorValueTreeState::ParameterLayout MySynthAudioProcessor::creat
 
     // ARP
     params.push_back(std::make_unique<juce::AudioParameterFloat>("ARP_BPM", "Arpeggiator BPM", 0.0, 1.0, 0.5));
-    params.push_back(std::make_unique<juce::AudioParameterChoice>("ARP_SEL", "Arpeggiator Selector", juce::StringArray{ "Off", "Repeat"}, 0));
+    params.push_back(std::make_unique<juce::AudioParameterChoice>("ARP_SEL", "Arpeggiator Selector", juce::StringArray{ "Off", "Repeat", "Order" }, 0));
 
     return { params.begin(), params.end() };
 }

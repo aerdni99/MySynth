@@ -16,7 +16,7 @@ ArpeggiatorComponent::ArpeggiatorComponent(juce::AudioProcessorValueTreeState& a
     typeSelectorAttachment = std::make_unique<juce::AudioProcessorValueTreeState::ComboBoxAttachment>(apvts, "ARP_SEL", typeSelector);
 
     // This defines the contents of our combobox selector
-    juce::StringArray choices{ "Off", "Repeat" };
+    juce::StringArray choices{ "Off", "Repeat", "Order"};
     typeSelector.addItemList(choices, 1);
     typeSelector.setSelectedItemIndex(0);
     addAndMakeVisible(typeSelector);

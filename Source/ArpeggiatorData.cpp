@@ -33,7 +33,7 @@ float ArpeggiatorData::getRate() {
     return rate;
 }
 
-void ArpeggiatorData::handleMidi(juce::MidiBuffer& midiMessages, float arpBPM, int numSamples) {
+void ArpeggiatorData::handleMidi(juce::MidiBuffer& midiMessages, float arpBPM, int numSamples, int arpSel) {
     auto noteDuration = static_cast<int>(std::ceil(rate * 0.25f * (0.1f + (1.0f - arpBPM))));
     for (const auto metaData : midiMessages) {
         auto msg = metaData.getMessage();
@@ -48,13 +48,32 @@ void ArpeggiatorData::handleMidi(juce::MidiBuffer& midiMessages, float arpBPM, i
     if (time + numSamples >= noteDuration) {
         auto offset = juce::jmax(0, juce::jmin((int)(noteDuration - time), numSamples - 1));
         if (lastNote > 0) {
-            midiMessages.addEvent(juce::MidiMessage::noteOff(1, lastNote), offset);
-            lastNote = -1;
+            switch (arpSel) {
+            case 1:
+                midiMessages.addEvent(juce::MidiMessage::noteOff(1, lastNote), offset);
+                lastNote = -1;
+                break;
+            case 2:
+                for (const auto noteNum : notes) {
+
+                }
+                break;
+            default:
+                break;
+            }
         }
         if (notes.size() > 0) {
-            currentNote = (currentNote + 1) % notes.size();
-            lastNote = notes[currentNote];
-            midiMessages.addEvent(juce::MidiMessage::noteOn(1, lastNote, (juce::uint8)127), offset);
+            switch (arpSel) {
+            case 1:
+                currentNote = (currentNote + 1) % notes.size();
+                lastNote = notes[currentNote];
+                midiMessages.addEvent(juce::MidiMessage::noteOn(1, lastNote, (juce::uint8)127), offset);
+                break;
+            case 2:
+                break;
+            default:
+                break;
+            }
         }
     }
     time = (time + numSamples) % noteDuration;
