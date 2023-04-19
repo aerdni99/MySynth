@@ -19,7 +19,7 @@ MySynthAudioProcessor::MySynthAudioProcessor()
                       #endif
                        .withOutput ("Output", juce::AudioChannelSet::stereo(), true)
                      #endif
-                       ), apvts(*this, nullptr, "Parameters", createParams())
+                       ), apvts(*this, nullptr, "Parameters", createParams()), arp()
 #endif
 {
     synth.addSound(new SynthSound());
@@ -100,6 +100,9 @@ void MySynthAudioProcessor::changeProgramName (int index, const juce::String& ne
 void MySynthAudioProcessor::prepareToPlay (double sampleRate, int samplesPerBlock)
 {
     synth.setCurrentPlaybackSampleRate(sampleRate);
+    arp.setSampleRate(sampleRate);
+    arp.clearNotes();
+
     for (int i = 0; i < synth.getNumVoices(); i++) {
         if (auto voice = dynamic_cast<SynthVoice*>(synth.getVoice(i))) {
             voice->prepareToPlay(sampleRate, samplesPerBlock, getTotalNumOutputChannels());
@@ -145,13 +148,22 @@ void MySynthAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, juce
     auto totalNumInputChannels  = getTotalNumInputChannels();
     auto totalNumOutputChannels = getTotalNumOutputChannels();
 
+    // ARP
+    // The arp needs to edit the midi messages
+    auto& arpBPM = *apvts.getRawParameterValue("ARP_BPM");
+    auto& arpSel = *apvts.getRawParameterValue("ARP_SEL");
+
+    if (arpSel != 0) {
+        // Do something to the midiMessages (arpData function call)
+        arp.handleMidi(midiMessages, arpBPM, buffer.getNumSamples(), arpSel);
+    }
+
+
     for (auto i = totalNumInputChannels; i < totalNumOutputChannels; ++i)
         buffer.clear (i, 0, buffer.getNumSamples());
 
     for (int i = 0; i < synth.getNumVoices(); i++) {
         if (auto voice = dynamic_cast<SynthVoice*>(synth.getVoice(i))) {
-
-            // Maybe see about getting rid of some of these 1-time use vars
 
             // ADSR
             auto& attack = *apvts.getRawParameterValue("ATTACK");
@@ -242,6 +254,10 @@ juce::AudioProcessorValueTreeState::ParameterLayout MySynthAudioProcessor::creat
     params.push_back(std::make_unique<juce::AudioParameterFloat>("DECAY", "Decay", juce::NormalisableRange<float> { 0.0f, 1.0f, }, 0.1f));
     params.push_back(std::make_unique<juce::AudioParameterFloat>("SUSTAIN", "Sustain", juce::NormalisableRange<float> { 0.0f, 1.0f, }, 1.0f));
     params.push_back(std::make_unique<juce::AudioParameterFloat>("RELEASE", "Release", juce::NormalisableRange<float> { 0.0f, 3.0f, }, 0.4f));
+
+    // ARP
+    params.push_back(std::make_unique<juce::AudioParameterFloat>("ARP_BPM", "Arpeggiator BPM", 0.0, 1.0, 0.5));
+    params.push_back(std::make_unique<juce::AudioParameterChoice>("ARP_SEL", "Arpeggiator Selector", juce::StringArray{ "Off", "Repeat", "Order" }, 0));
 
     return { params.begin(), params.end() };
 }
