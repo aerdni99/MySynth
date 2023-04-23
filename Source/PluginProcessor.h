@@ -11,6 +11,7 @@
 #include <JuceHeader.h>
 #include "SynthSound.h"
 #include "SynthVoice.h"
+#include "ArpeggiatorData.h"
 
 //==============================================================================
 /**
@@ -62,6 +63,7 @@ public:
 
 private:
     juce::Synthesiser synth;
+    ArpeggiatorData arp;
     juce::AudioProcessorValueTreeState::ParameterLayout createParams();
 
     //==============================================================================
